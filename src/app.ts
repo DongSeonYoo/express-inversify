@@ -1,6 +1,6 @@
-import env from './configs/env';
+import { ENV } from './configs/env';
 import app from './server';
 
-app.listen(env.PORT, () => {
-    console.log(env.PORT + '에서 실행');
+app.listen(ENV.PORT, () => {
+    console.log(ENV.PORT + '에서 실행');
 });
