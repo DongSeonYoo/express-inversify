@@ -16,7 +16,8 @@
         "allowSyntheticDefaultImports": true /* default export가 없는 모듈에서 default imports를 허용 */,
         "esModuleInterop": true /* 'require'와 'import' 호환 */,
         "skipLibCheck": true /* 모든 선언 파일(*.d.ts)의 타입 검사 생략 */,
-        "resolveJsonModule": true /* .json 확장자로 import된 모듈을 포함 */
+        "resolveJsonModule": true /* .json 확장자로 import된 모듈을 포함 */,
+        "strictPropertyInitialization": false
     },
     "include": ["./src/**/*"],
     "exclude": ["node_modules", "src/test", "**/*.spec.ts", "**/*.test.ts"]
