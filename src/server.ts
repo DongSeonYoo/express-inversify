@@ -1,9 +1,12 @@
 import express from 'express';
+import router from './routes';
+import { errorHandlingMiddleWare } from './middlewares/error.middleware';
+import { appDataSource } from './configs/typeorm.config';
 
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.send('get 전역 테스트');
+appDataSource.initialize().then(() => {
+    console.log('db connections');
 });
 
 export default app;
