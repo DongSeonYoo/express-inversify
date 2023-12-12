@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('major_tb', { schema: 'public' })
 export class Major {

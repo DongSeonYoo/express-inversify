@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Club } from './club.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('join_request_tb', { schema: 'public' })
 export class JoinRequest {

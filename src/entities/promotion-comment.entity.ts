@@ -7,8 +7,8 @@ import {
     OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Promotion } from './Promotion';
-import { User } from './User.entity';
+import { Promotion } from './promotion';
+import { User } from './user.entity';
 import { PromotionReply } from './promotion-reply.entity';
 
 @Entity('promotion_comment_tb', { schema: 'public' })

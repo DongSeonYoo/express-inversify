@@ -8,7 +8,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ClubPost } from './club-post.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 import { ClubReply } from './club-reply.entity';
 
 @Entity('club_comment_tb', { schema: 'public' })

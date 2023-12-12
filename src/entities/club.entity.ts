@@ -14,7 +14,7 @@ import { BigCategory } from './big-category.entity';
 import { SmallCategory } from './small-category.entity';
 import { JoinRequest } from './join-request.entity';
 import { Notice } from './notice.entity';
-import { Promotion } from './Promotion';
+import { Promotion } from './promotion';
 
 @Entity('club_tb', { schema: 'public' })
 export class Club {

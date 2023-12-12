@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { ClubComment } from './club-comment.entity';
 import { ClubBoard } from './club-board.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 import { PostImg } from './post-img.entity';
 
 @Entity('club_post_tb', { schema: 'public' })

@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { NoticeComment } from './notice-comment.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('notice_reply_tb', { schema: 'public' })
 export class NoticeReply {

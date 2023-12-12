@@ -6,7 +6,7 @@ import {
     ManyToOne,
     PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Promotion } from './Promotion';
+import { Promotion } from './promotion';
 
 @Entity('promotion_img_tb', { schema: 'public' })
 export class PromotionImg {

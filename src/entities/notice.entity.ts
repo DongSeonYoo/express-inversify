@@ -10,7 +10,7 @@ import {
 import { NoticeComment } from './notice-comment.entity';
 import { NoticeImg } from './notice-img.entity';
 import { Club } from './club.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('notice_tb', { schema: 'public' })
 export class Notice {

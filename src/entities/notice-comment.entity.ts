@@ -8,7 +8,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Notice } from './notice.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 import { NoticeReply } from './notice-reply.entity';
 
 @Entity('notice_comment_tb', { schema: 'public' })

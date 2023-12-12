@@ -7,7 +7,7 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PromotionComment } from './promotion-comment.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('promotion_reply_tb', { schema: 'public' })
 export class PromotionReply {

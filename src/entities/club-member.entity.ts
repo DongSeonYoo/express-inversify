@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Club } from './club.entity';
 import { Position } from './position.entity';
-import { User } from './User.entity';
+import { User } from './user.entity';
 
 @Entity('club_member_tb', { schema: 'public' })
 export class ClubMember {
