@@ -28,7 +28,7 @@ class Validate {
     }
 
     /**
-     * @param regex 정규식을 받는다
+     * @param regex 테스트 할 정규식
      */
     checkRegex(regex: RegExp) {
         if (!regex.test(this.input)) {

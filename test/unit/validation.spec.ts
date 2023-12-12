@@ -1,22 +1,15 @@
-import { emailRegex } from '../../src/constants/regex.constant';
+import { emailRegex, nameRegex } from '../../src/constants/regex.constant';
 import { BadRequestException } from '../../src/utils/customError.util';
 import { validate } from '../../src/utils/validate.util';
 
 describe('utils/validation 클래스를 테스트한다', () => {
-    let createValidation;
     let name = 'testVaue';
-
-    beforeEach(() => {
-        createValidation = (input: any, name: string) => {
-            return validate(input, name);
-        };
-    });
 
     describe('checkInput 메서드를 테스트한다', () => {
         it('input이 undefined면 에러를 던진다', () => {
             // given
             const input = undefined;
-            const valid = createValidation(input, name);
+            const valid = validate(input, name);
 
             // when
             const checkInputFunc = () => {
@@ -30,7 +23,7 @@ describe('utils/validation 클래스를 테스트한다', () => {
         it('input이 empty string이면 에러를 던진다', () => {
             // given
             const input = '';
-            const valid = createValidation(input, name);
+            const valid = validate(input, name);
 
             // when
             const checkInputFunc = () => {
@@ -44,7 +37,7 @@ describe('utils/validation 클래스를 테스트한다', () => {
         it('성공 시 그대로 통과한다', () => {
             // given
             const input = 'string';
-            const valid = createValidation(input, name);
+            const valid = validate(input, name);
 
             // then
             expect(valid.checkInput()).toEqual({ input, name });
@@ -58,7 +51,7 @@ describe('utils/validation 클래스를 테스트한다', () => {
             const min = 1;
             const max = 5;
 
-            const valid = createValidation(input, name);
+            const valid = validate(input, name);
 
             // when
             const checkLengthFunc = () => {
@@ -71,6 +64,19 @@ describe('utils/validation 클래스를 테스트한다', () => {
     });
 
     describe('checkRegex 메서드를 테스트한다', () => {
-        it.todo('이메일 정규식을 통과하지 못하면 400에러를 던진다');
+        it('정규식을 통과하지 못하면 400에러를 던진다', () => {
+            // given
+            // 이름은 한글 or 영어로만 이루어져 있어야 함
+            const input = '유동선2';
+            const valid = validate(input, name);
+
+            // when
+            const chceckRegexFunc = () => {
+                valid.checkRegex(nameRegex);
+            };
+
+            // then
+            expect(chceckRegexFunc).toThrow(BadRequestException);
+        });
     });
 });
