@@ -43,7 +43,7 @@ class Validate {
     }
 
     setError(message: string) {
-        throw new BadRequestException(`${this.name}: ${message}`);
+        throw new BadRequestException(message, this.name);
     }
 }
 
