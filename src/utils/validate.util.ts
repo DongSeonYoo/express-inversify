@@ -37,6 +37,11 @@ class Validate {
         return this;
     }
 
+    isNumber() {
+        if (isNaN(Number(this.input))) this.setError(errorMessage.isNumber);
+        return this;
+    }
+
     setError(message: string) {
         throw new BadRequestException(`${this.name}: ${message}`);
     }
