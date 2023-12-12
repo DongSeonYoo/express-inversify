@@ -1,11 +1,14 @@
 import {
     Column,
+    CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     Index,
     JoinColumn,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from 'typeorm';
 import { ClubComment } from './club-comment.entity';
 import { ClubMember } from './club-member.entity';
@@ -39,19 +42,13 @@ export class User {
     @Column('character', { name: 'personal_color', length: 6 })
     personalColor: string;
 
-    @Column('timestamp with time zone', {
-        name: 'created_at',
-        default: () => 'now()',
-    })
+    @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @Column('timestamp without time zone', {
-        name: 'updated_at',
-        default: () => 'now()',
-    })
+    @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @Column('timestamp with time zone', { name: 'deleted_at' })
+    @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: Date;
 
     @OneToMany(() => ClubComment, (clubCommentTb) => clubCommentTb.user)
@@ -92,5 +89,24 @@ export class User {
 
     @ManyToOne(() => Major, (majorTb) => majorTb.userTbs)
     @JoinColumn([{ name: 'major', referencedColumnName: 'id' }])
-    major: Major;
+    major: number;
+
+    static create(
+        email: string,
+        pw: string,
+        name: string,
+        major: number,
+        personalColor: string,
+        entryYear: number,
+    ) {
+        const user = new User();
+        user.email = email;
+        user.pw = pw;
+        user.name = name;
+        user.major = major;
+        user.personalColor = personalColor;
+        user.entryYear = entryYear;
+
+        return user;
+    }
 }
