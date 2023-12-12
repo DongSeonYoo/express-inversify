@@ -79,4 +79,48 @@ describe('utils/validation 클래스를 테스트한다', () => {
             expect(chceckRegexFunc).toThrow(BadRequestException);
         });
     });
+
+    describe('isNumber 메서드를 테스트한다', () => {
+        it('input이 정수가 아닐 경우 400에러를 던진다', () => {
+            // given
+            const input = 'qwer';
+            const valid = validate(input, name);
+
+            // when
+            const checkIsNumberFunc = () => {
+                valid.isNumber();
+            };
+
+            // then
+            expect(checkIsNumberFunc).toThrow(BadRequestException);
+        });
+
+        it('input이 정수일 경우엔 에러를 던지지 않는다', () => {
+            // given
+            const input = '123';
+            const valid = validate(input, name);
+
+            // when
+            const checkIsNumberFunc = () => {
+                valid.isNumber();
+            };
+
+            // then
+            expect(checkIsNumberFunc).not.toThrow(BadRequestException);
+        });
+
+        it('input이 하나라도 정수가 아닐 경우 에러를 던진다', () => {
+            // given
+            const input = '123a';
+            const valid = validate(input, name);
+
+            // when
+            const checkIsNumberFunc = () => {
+                valid.isNumber();
+            };
+
+            // then
+            expect(checkIsNumberFunc).toThrow(BadRequestException);
+        });
+    });
 });
