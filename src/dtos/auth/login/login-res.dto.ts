@@ -1,4 +1,4 @@
-import { ICommonResponse } from '../../../common/response.common';
+import { ICommonResponse } from '../../../utils/common/response.common';
 
 export class LoginResponseDTO implements ICommonResponse {
     statusCode: number = 200;

@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { CustomError } from '../utils/customError.util';
-import { ICommonResponse } from '../common/response.common';
+import { ICommonResponse } from '../utils/common/response.common';
 
 export const errorHandlingMiddleWare: ErrorRequestHandler = (
     error: CustomError,

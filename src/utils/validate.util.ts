@@ -1,5 +1,4 @@
-import { UsingJoinColumnOnlyOnOneSideAllowedError } from 'typeorm';
-import errorMessage from '../constants/validate.constant';
+import errorMessage from './constants/validate.constant';
 import { BadRequestException } from './customError.util';
 
 class Validate {

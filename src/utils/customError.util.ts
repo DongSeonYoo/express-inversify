@@ -1,4 +1,4 @@
-import { ICommonResponse } from '../common/response.common';
+import { ICommonResponse } from './common/response.common';
 
 export class CustomError extends Error implements ICommonResponse {
     public statusCode: number;
