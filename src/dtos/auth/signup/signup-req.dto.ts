@@ -2,18 +2,18 @@ import { User } from '../../../entities/user.entity';
 import { validate } from '../../../utils/validate.util';
 
 export class SignupRequestDTO {
-    private email: string;
-    private pw: string;
-    private name: string;
-    private major: any;
-    private personalColor: string;
-    private entryYear: any;
+    email: string;
+    password: string;
+    name: string;
+    major: any;
+    personalColor: string;
+    entryYear: any;
 
     private constructor() {}
 
     private static validation(dto: SignupRequestDTO) {
         validate(dto.email, 'email').checkInput();
-        validate(dto.pw, 'pw').checkInput();
+        validate(dto.password, 'password').checkInput();
         validate(dto.name, 'name').checkInput();
         validate(dto.major, 'major').checkInput().isNumber();
         validate(dto.personalColor, 'personalColor').checkInput();
@@ -23,7 +23,7 @@ export class SignupRequestDTO {
     static of(body: any): SignupRequestDTO {
         const dto = new SignupRequestDTO();
         dto.email = body.email;
-        dto.pw = body.pw;
+        dto.password = body.password;
         dto.name = body.name;
         dto.major = body.major;
         dto.personalColor = body.personalColor;
@@ -37,7 +37,7 @@ export class SignupRequestDTO {
     toEntity(): User {
         return User.create(
             this.email,
-            this.pw,
+            this.password,
             this.name,
             this.major,
             this.personalColor,

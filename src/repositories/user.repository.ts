@@ -11,7 +11,7 @@ export const signUp = async (user: User): Promise<number> => {
         .values([
             {
                 email: user.email,
-                pw: user.pw,
+                password: user.password,
                 name: user.name,
                 major: user.major,
                 personalColor: user.personalColor,
@@ -22,4 +22,16 @@ export const signUp = async (user: User): Promise<number> => {
         .execute();
 
     return result.raw[0].id;
+};
+
+export const findUserByEmail = async (email: string) => {
+    return await userRepository.findOne({
+        select: {
+            id: true,
+            password: true,
+        },
+        where: {
+            email,
+        },
+    });
 };
