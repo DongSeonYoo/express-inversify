@@ -3,11 +3,11 @@ import {
     CreateDateColumn,
     DeleteDateColumn,
     Entity,
-    Index,
     JoinColumn,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
+    Unique,
     UpdateDateColumn,
 } from 'typeorm';
 import { ClubComment } from './club-comment.entity';
@@ -27,11 +27,11 @@ export class User {
     @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
     id: number;
 
-    @Column('character varying', { name: 'email', length: 256 })
+    @Column('character varying', { name: 'email', length: 256, unique: true })
     email: string;
 
-    @Column('character', { name: 'pw', length: 256 })
-    pw: string;
+    @Column('character', { name: 'password', length: 60 })
+    password: string;
 
     @Column('character varying', { name: 'name', length: 16 })
     name: string;
@@ -93,7 +93,7 @@ export class User {
 
     static create(
         email: string,
-        pw: string,
+        password: string,
         name: string,
         major: number,
         personalColor: string,
@@ -101,7 +101,7 @@ export class User {
     ) {
         const user = new User();
         user.email = email;
-        user.pw = pw;
+        user.password = password;
         user.name = name;
         user.major = major;
         user.personalColor = personalColor;
