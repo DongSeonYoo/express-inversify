@@ -28,21 +28,16 @@ export class UserRepository {
                     entryYear: user.entryYear,
                 },
             ])
-            .returning(['id'])
             .execute();
 
         return result.raw[0].id;
     }
 
-    findUserByEmail = async (email: string) => {
+    async findUserByEmail(email: string) {
         return await this.repository.findOne({
-            select: {
-                id: true,
-                password: true,
-            },
             where: {
                 email,
             },
         });
-    };
+    }
 }

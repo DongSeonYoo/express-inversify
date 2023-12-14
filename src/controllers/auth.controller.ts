@@ -29,6 +29,22 @@ export class AuthController {
 
             const data = await this.authService.login(loginDto);
 
+            res.send(new Success('로그인 성공', data));
+        } catch (error) {
+            return next(error);
+        }
+    }
+
+    async checkDuplicateEmail(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { email } = req.params;
+            validate(email, 'email').checkInput();
+
+            const data = await this.authService.checkDuplicateEmail(email);
+            if (!data) {
+                return res.send();
+            }
+
             res.send(data);
         } catch (error) {
             return next(error);

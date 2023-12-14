@@ -10,4 +10,6 @@ router.post('/signup', authController.signUp.bind(authController));
 
 router.post('/login', authController.login.bind(authController));
 
+router.get('/duplicate/email/:email', authController.checkDuplicateEmail.bind(authController));
+
 export default router;
