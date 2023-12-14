@@ -1,5 +1,5 @@
-import { User } from '../../../entities/user.entity';
-import { validate } from '../../../utils/validate.util';
+import { User } from '../../entities/user.entity';
+import { validate } from '../../utils/validate.util';
 
 export class SignupRequestDTO {
     email: string;
@@ -13,7 +13,7 @@ export class SignupRequestDTO {
 
     // 1. SignupRequestDto 인스턴스를 생성한다
     // 2. validation
-    static of(body: SignupRequestDTO): SignupRequestDTO {
+    static of(body: any): SignupRequestDTO {
         const dto = new SignupRequestDTO();
         dto.email = body.email;
         dto.password = body.password;

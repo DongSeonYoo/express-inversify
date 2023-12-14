@@ -1,4 +1,4 @@
-import { validate } from '../../../utils/validate.util';
+import { validate } from '../../utils/validate.util';
 
 export class LoginDto {
     email: string;

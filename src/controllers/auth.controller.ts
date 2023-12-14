@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
-import { SignupRequestDTO } from '../dtos/auth/signup/signup-req.dto';
-import { LoginDto } from '../dtos/auth/login/login.dto';
+import { SignupRequestDTO } from '../dtos/auth/signup.dto';
+import { LoginDto } from '../dtos/auth/login.dto';
 import { inject, injectable } from 'inversify';
 import { AuthService } from '../services/auth.services';
 import { AuthModule } from '../configs/inversify/types';
