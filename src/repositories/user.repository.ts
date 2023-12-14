@@ -1,15 +1,13 @@
 import { DataSource, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { inject, injectable } from 'inversify';
-import TYPES from '../inversify/types';
+import { AuthModule } from '../configs/inversify/types';
 
 @injectable()
 export class UserRepository {
     private readonly repository: Repository<User>;
 
-    constructor(
-        @inject(TYPES.DataSource) private readonly dataSource: DataSource,
-    ) {
+    constructor(@inject(AuthModule.DataSource) private readonly dataSource: DataSource) {
         this.repository = dataSource.getRepository(User);
     }
 

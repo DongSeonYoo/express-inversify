@@ -1,10 +1,10 @@
-import container from '../inversify/inversify.config';
-import TYPES from '../inversify/types';
+import container from '../configs/inversify/inversify.config';
 import { Router } from 'express';
 import { AuthController } from '../controllers/auth.controller';
+import { AuthModule } from '../configs/inversify/types';
 
 const router = Router();
-const authController = container.get<AuthController>(TYPES.AuthController);
+const authController = container.get<AuthController>(AuthModule.AuthController);
 
 router.post('/signup', authController.signUp.bind(authController));
 

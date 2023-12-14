@@ -1,15 +1,4 @@
-import {
-    Column,
-    CreateDateColumn,
-    DeleteDateColumn,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    OneToMany,
-    PrimaryGeneratedColumn,
-    Unique,
-    UpdateDateColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 import { ClubComment } from './club-comment.entity';
 import { ClubMember } from './club-member.entity';
 import { ClubPost } from './club-post.entity';
@@ -75,38 +64,32 @@ export class User {
     @OneToMany(() => Notice, (noticeTb) => noticeTb.user)
     noticeTbs: Notice[];
 
-    @OneToMany(
-        () => PromotionComment,
-        (promotionCommentTb) => promotionCommentTb.user,
-    )
+    @OneToMany(() => PromotionComment, (promotionCommentTb) => promotionCommentTb.user)
     promotionCommentTbs: PromotionComment[];
 
-    @OneToMany(
-        () => PromotionReply,
-        (promotionReplyTb) => promotionReplyTb.user,
-    )
+    @OneToMany(() => PromotionReply, (promotionReplyTb) => promotionReplyTb.user)
     promotionReplyTbs: PromotionReply[];
 
     @ManyToOne(() => Major, (majorTb) => majorTb.userTbs)
     @JoinColumn([{ name: 'major', referencedColumnName: 'id' }])
     major: number;
 
-    static create(
-        email: string,
-        password: string,
-        name: string,
-        major: number,
-        personalColor: string,
-        entryYear: number,
-    ) {
-        const user = new User();
-        user.email = email;
-        user.password = password;
-        user.name = name;
-        user.major = major;
-        user.personalColor = personalColor;
-        user.entryYear = entryYear;
+    // static create(
+    //     email: string,
+    //     password: string,
+    //     name: string,
+    //     major: number,
+    //     personalColor: string,
+    //     entryYear: number,
+    // ) {
+    //     const user = new User();
+    //     user.email = email;
+    //     user.password = password;
+    //     user.name = name;
+    //     user.major = major;
+    //     user.personalColor = personalColor;
+    //     user.entryYear = entryYear;
 
-        return user;
-    }
+    //     return user;
+    // }
 }

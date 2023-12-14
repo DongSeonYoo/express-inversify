@@ -1,23 +1,26 @@
 import { NextFunction, Response, Request } from 'express';
 import { SignupRequestDTO } from '../dtos/auth/signup/signup-req.dto';
-import { LoginRequestDto } from '../dtos/auth/login/login-req.dto';
+import { LoginDto } from '../dtos/auth/login/login.dto';
 import { inject, injectable } from 'inversify';
 import { AuthService } from '../services/auth.services';
-import TYPES from '../inversify/types';
+import { AuthModule } from '../configs/inversify/types';
+import { validate } from '../utils/validate.util';
+import { Success } from '../utils/common/response.common';
 
 @injectable()
 export class AuthController {
     constructor(
-        @inject(TYPES.AuthService) private readonly authService: AuthService,
+        @inject(AuthModule.AuthService)
+        private readonly authService: AuthService,
     ) {}
 
     async signUp(req: Request, res: Response, next: NextFunction) {
         try {
             const signupDto = SignupRequestDTO.of(req.body);
 
-            const data = await this.authService.signup(signupDto);
+            const result = await this.authService.signup(signupDto);
 
-            res.send(data);
+            res.send(new Success('회원가입 성공', result));
         } catch (error) {
             return next(error);
         }
@@ -25,7 +28,7 @@ export class AuthController {
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
-            const loginDto = LoginRequestDto.of(req.body);
+            const loginDto = LoginDto.of(req.body);
 
             const data = await this.authService.login(loginDto);
 
