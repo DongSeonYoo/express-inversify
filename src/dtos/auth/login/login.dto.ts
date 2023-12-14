@@ -1,15 +1,15 @@
 import { validate } from '../../../utils/validate.util';
 
-export class LoginRequestDto {
+export class LoginDto {
     email: string;
-    pw: string;
+    password: string;
 
-	private constructor() {}
+    private constructor() {}
 
-    static of(body: any): LoginRequestDto {
-        const dto = new LoginRequestDto();
+    static of(body: any): LoginDto {
+        const dto = new LoginDto();
         dto.email = body.email;
-        dto.pw = body.pw;
+        dto.password = body.pw;
 
         dto.validate();
 
@@ -18,6 +18,6 @@ export class LoginRequestDto {
 
     private validate() {
         validate(this.email, 'email').checkInput();
-        validate(this.pw, 'password').checkInput();
+        validate(this.password, 'password').checkInput();
     }
 }

@@ -11,16 +11,9 @@ export class SignupRequestDTO {
 
     private constructor() {}
 
-    private static validation(dto: SignupRequestDTO) {
-        validate(dto.email, 'email').checkInput();
-        validate(dto.password, 'password').checkInput();
-        validate(dto.name, 'name').checkInput();
-        validate(dto.major, 'major').checkInput().isNumber();
-        validate(dto.personalColor, 'personalColor').checkInput();
-        validate(dto.entryYear, 'entryYear').checkInput();
-    }
-
-    static of(body: any): SignupRequestDTO {
+    // 1. SignupRequestDto 인스턴스를 생성한다
+    // 2. validation
+    static of(body: SignupRequestDTO): SignupRequestDTO {
         const dto = new SignupRequestDTO();
         dto.email = body.email;
         dto.password = body.password;
@@ -29,19 +22,31 @@ export class SignupRequestDTO {
         dto.personalColor = body.personalColor;
         dto.entryYear = body.entryYear;
 
-        SignupRequestDTO.validation(dto);
+        dto.validation();
 
         return dto;
     }
 
     toEntity(): User {
-        return User.create(
-            this.email,
-            this.password,
-            this.name,
-            this.major,
-            this.personalColor,
-            this.entryYear,
-        );
+        const { email, password, name, major, personalColor, entryYear } = this;
+
+        const user = new User();
+        user.email = email;
+        user.password = password;
+        user.name = name;
+        user.major = major;
+        user.personalColor = personalColor;
+        user.entryYear = entryYear;
+
+        return user;
+    }
+
+    private validation() {
+        validate(this.email, 'email').checkInput();
+        validate(this.password, 'password').checkInput();
+        validate(this.name, 'name').checkInput();
+        validate(this.major, 'major').checkInput().isNumber();
+        validate(this.personalColor, 'personalColor').checkInput();
+        validate(this.entryYear, 'entryYear').checkInput();
     }
 }
