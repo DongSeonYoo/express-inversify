@@ -9,7 +9,7 @@ export class LoginDto {
     static of(body: any): LoginDto {
         const dto = new LoginDto();
         dto.email = body.email;
-        dto.password = body.pw;
+        dto.password = body.password;
 
         dto.validate();
 
@@ -17,7 +17,7 @@ export class LoginDto {
     }
 
     private validate() {
-        validate(this.email, 'email').checkInput();
-        validate(this.password, 'password').checkInput();
+        validate(this.email, 'email').checkInput().checkLength(1, 256);
+        validate(this.password, 'password').checkInput().checkLength(1, 60);
     }
 }
