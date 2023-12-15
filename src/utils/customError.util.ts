@@ -15,8 +15,15 @@ export class BadRequestException extends CustomError {
 }
 
 export class UnauthorizedException extends CustomError {
-    constructor(message: string, data: string) {
-        super(message, data);
+    constructor(message: string) {
+        super(message);
         this.statusCode = 401;
+    }
+}
+
+export class NotFoundException extends CustomError {
+    constructor(message: string) {
+        super(message);
+        this.statusCode = 404;
     }
 }
