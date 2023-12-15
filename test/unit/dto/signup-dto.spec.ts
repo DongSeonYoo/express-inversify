@@ -74,7 +74,7 @@ describe('signup dto를 테스트한다', () => {
 
     it('entry year(입학 년도)는 정수가 아닐 시 400에러를 던진다', () => {
         // given
-        body.entryYear = '23w';
+        body.entryYear = '23';
 
         // when
         const func = () => {
@@ -87,7 +87,7 @@ describe('signup dto를 테스트한다', () => {
 
     it('entry year(입학 년도)는 두 자리 숫자가 아닐시 400에러를 던진다', () => {
         // given
-        body.entryYear = '232';
+        body.entryYear = 232;
 
         // when
         const func = () => {

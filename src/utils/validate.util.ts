@@ -20,7 +20,8 @@ class Validate {
      * 길이를 검사
      */
     checkLength(min: number, max: number) {
-        if (this.input.length < min || this.input.length > max) {
+        const input = String(this.input);
+        if (input.length < min || input.length > max) {
             this.setError(errorMessage.length);
         }
         return this;
@@ -36,8 +37,13 @@ class Validate {
         return this;
     }
 
+    /**
+     * 정수인지 검사한다
+     */
     isNumber() {
-        if (isNaN(Number(this.input))) this.setError(errorMessage.isNumber);
+        if (typeof this.input !== 'number' || isNaN(Number(this.input))) {
+            this.setError(errorMessage.isNumber);
+        }
         return this;
     }
 
@@ -46,7 +52,7 @@ class Validate {
     }
 }
 
-export const validate = (input: string | undefined, name: string) => {
+export const validate = (input: any, name: string) => {
     const result = new Validate(input, name);
 
     return result;

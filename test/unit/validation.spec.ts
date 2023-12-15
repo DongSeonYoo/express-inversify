@@ -1,4 +1,4 @@
-import { emailRegex, nameRegex } from '../../src/constants/regex.constant';
+import { nameRegex } from '../../src/utils/constants/regex.constant';
 import { BadRequestException } from '../../src/utils/customError.util';
 import { validate } from '../../src/utils/validate.util';
 
@@ -97,7 +97,7 @@ describe('utils/validation 클래스를 테스트한다', () => {
 
         it('input이 정수일 경우엔 에러를 던지지 않는다', () => {
             // given
-            const input = '123';
+            const input = 123;
             const valid = validate(input, name);
 
             // when
