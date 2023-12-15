@@ -32,23 +32,33 @@ export class AuthController {
 
             const data = await this.authService.login(loginDto);
 
+            req.session.user = {
+                userIdx: data.userIdx,
+                email: data.email,
+            };
+
             res.send(new Success('로그인 성공', data));
         } catch (error) {
             return next(error);
         }
     }
 
+    logout(req: Request, res: Response, next: NextFunction) {
+        req.session.destroy((error) => {
+            res.send(new Success('로그아웃 성공'));
+        });
+    }
+
     async checkDuplicateEmail(req: Request, res: Response, next: NextFunction) {
         try {
             const { email } = req.params;
+
+            // validate(email, 'email').checkInput().checkRegex(emailRegex);
             validate(email, 'email').checkInput();
 
-            const data = await this.authService.checkDuplicateEmail(email);
-            if (!data) {
-                return res.send();
-            }
+            await this.authService.checkDuplicateEmail(email);
 
-            res.send(data);
+            res.send(new Success('사용 가능한 이메일입니다'));
         } catch (error) {
             return next(error);
         }
