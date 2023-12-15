@@ -1,63 +1,100 @@
-import { SignupRequestDTO } from '../../../src/dtos/auth/signup/signup-req.dto';
-import { User } from '../../../src/entities/user.entity';
+import { SignupRequestDTO } from '../../../src/dtos/auth/signup.dto';
 import { BadRequestException } from '../../../src/utils/customError.util';
 
 describe('signup dto를 테스트한다', () => {
-    describe('signup dto의 static 메서드를 검증한다', () => {
-        let body;
-        beforeEach(() => {
-            body = {
-                email: 'inko51366@naver.com',
-                pw: '1234..',
-                name: 'testuser',
-                personalColor: '123123',
-                major: '2',
-                entryYear: '23',
-            };
-        });
-        it('body를 받아 회원가입 DTO를 of 메서드로 생성한다', () => {
-            // when
-            const expectedDto = SignupRequestDTO.of(body);
-
-            // then
-            expect(expectedDto).toBeInstanceOf(SignupRequestDTO);
-        });
-
-        it('dto를 받아 toEntity 메서드로 user 엔티티로 변환해준다', () => {
-            const signupDto = SignupRequestDTO.of(body);
-
-            // when
-            const expectUserEntity = signupDto.toEntity();
-
-            // then
-            expect(expectUserEntity).toBeInstanceOf(User);
-        });
+    let body;
+    beforeEach(() => {
+        body = {
+            email: 'test123@inha.edu',
+            password: '0000Asd..',
+            name: 'yood',
+            major: 23,
+            personalColor: 333333,
+            entryYear: 23,
+        };
+    });
+    it('signup request dto를 생성한다', () => {
+        // then
+        expect(SignupRequestDTO.of(body)).toBeInstanceOf(SignupRequestDTO);
     });
 
-    describe('dto 내부에서 validation로직을 실행한다', () => {
-        it('값이 하나라도 없으면 400에러를 던진다', () => {
-            // given
-            const body = {
-                // email: 'inko51366@naver.com',
-                pw: '1234..',
-                name: 'testuser',
-                personalColor: '123123',
-                major: '2',
-                entryYear: '23',
-            };
+    it('email 정규식에 맞지 않을 경우 400 에러를 던진다', () => {
+        // given
+        body.email = 'test123@naver.com';
 
-            // when
-            const createDtoFunc = () => {
-                SignupRequestDTO.of(body);
-            };
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
 
-            // then
-            expect(createDtoFunc).toThrow(BadRequestException);
-        });
-        it.todo('이메일 정규식을 검사한다');
-        it.todo('패스워드 정규식을 검사한다');
-        it.todo('이름 정규식을 검사한다');
-        it.todo('major가 정수인지 검사한다');
-        it.todo('entry year(입학 년도) 정규식을 검사한다');
+        // then
+        expect(func).toThrow(BadRequestException);
+    });
+
+    it('password 정규식에 맞지 않을 경우 400에러를 던진다', () => {
+        // given
+        body.password = '0000Asd';
+
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
+
+        // then
+        expect(func).toThrow(BadRequestException);
+    });
+
+    it('name 정규식에 맞지 않을 경우 400에러를 던진다', () => {
+        // given
+        // 숫자는 X
+        body.name = 'yoodongseon123';
+
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
+
+        // then
+        expect(func).toThrow(BadRequestException);
+    });
+
+    it('major가 정수가 아닐 시 400에러를 던진다', () => {
+        // given
+        // 숫자 X
+        body.major = '12s3';
+
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
+
+        // then
+        expect(func).toThrow(BadRequestException);
+    });
+
+    it('entry year(입학 년도)는 정수가 아닐 시 400에러를 던진다', () => {
+        // given
+        body.entryYear = '23w';
+
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
+
+        // then
+        expect(func).toThrow(BadRequestException);
+    });
+
+    it('entry year(입학 년도)는 두 자리 숫자가 아닐시 400에러를 던진다', () => {
+        // given
+        body.entryYear = '232';
+
+        // when
+        const func = () => {
+            SignupRequestDTO.of(body);
+        };
+
+        // then
+        expect(func).toThrow(BadRequestException);
     });
 });
