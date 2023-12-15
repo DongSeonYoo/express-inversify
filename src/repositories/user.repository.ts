@@ -1,13 +1,13 @@
 import { DataSource, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { inject, injectable } from 'inversify';
-import { AuthModule } from '../configs/inversify/types';
+import { Database } from '../configs/inversify/types';
 
 @injectable()
 export class UserRepository {
     private readonly repository: Repository<User>;
 
-    constructor(@inject(AuthModule.DataSource) private readonly dataSource: DataSource) {
+    constructor(@inject(Database.DataSource) private readonly dataSource: DataSource) {
         this.repository = dataSource.getRepository(User);
     }
 
@@ -37,5 +37,22 @@ export class UserRepository {
                 email,
             },
         });
+    }
+
+    async getUserProfileByIdx(userIdx: number) {
+        const profile = await this.repository
+            .createQueryBuilder('user')
+            .select([
+                'user.name AS "name"',
+                'user.entryYear AS "entryYear"',
+                'user.personalColor AS "personalColor"',
+                'to_char(user.createdAt, \'YYYY.MM.DD\') AS "createdAt"',
+                'major.name AS "major"',
+            ])
+            .leftJoin('user.major', 'major')
+            .where('user.id = :userIdx', { userIdx })
+            .getRawOne();
+
+        return profile;
     }
 }
