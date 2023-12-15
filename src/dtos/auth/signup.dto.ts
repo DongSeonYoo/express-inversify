@@ -1,4 +1,5 @@
 import { User } from '../../entities/user.entity';
+import { emailRegex, nameRegex, pwRegex } from '../../utils/constants/regex.constant';
 import { validate } from '../../utils/validate.util';
 
 export class SignupRequestDTO {
@@ -42,11 +43,11 @@ export class SignupRequestDTO {
     }
 
     private validation() {
-        validate(this.email, 'email').checkInput();
-        validate(this.password, 'password').checkInput();
-        validate(this.name, 'name').checkInput();
+        validate(this.email, 'email').checkInput().checkRegex(emailRegex);
+        validate(this.password, 'password').checkInput().checkRegex(pwRegex);
+        validate(this.name, 'name').checkInput().checkRegex(nameRegex);
         validate(this.major, 'major').checkInput().isNumber();
         validate(this.personalColor, 'personalColor').checkInput();
-        validate(this.entryYear, 'entryYear').checkInput();
+        validate(this.entryYear, 'entryYear').checkInput().isNumber().checkLength(2, 2);
     }
 }
