@@ -47,6 +47,14 @@ class Validate {
         return this;
     }
 
+    /**
+     * boolean 타입인지 검사한다
+     */
+    isBoolean() {
+        if (typeof this.input !== 'boolean') this.setError(errorMessage.isBoolean);
+        return this;
+    }
+
     setError(message: string) {
         throw new BadRequestException(message, this.name);
     }
