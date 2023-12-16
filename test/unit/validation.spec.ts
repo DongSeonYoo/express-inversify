@@ -123,4 +123,34 @@ describe('utils/validation 클래스를 테스트한다', () => {
             expect(checkIsNumberFunc).toThrow(BadRequestException);
         });
     });
+
+    describe('isBoolean 메서드를 테스트한다', () => {
+        it('input boolean이 아닐 경우 400에러를 던진다', () => {
+            // given
+            const input = 'qwer';
+            const valid = validate(input, name);
+
+            // when
+            const checkIsNumberFunc = () => {
+                valid.isBoolean();
+            };
+
+            // then
+            expect(checkIsNumberFunc).toThrow(BadRequestException);
+        });
+
+        it('input boolean일 경우 그대로 통과한다', () => {
+            // given
+            const input = true;
+            const valid = validate(input, name);
+
+            // when
+            const func = () => {
+                valid.isBoolean();
+            };
+
+            // then
+            expect(func).not.toThrow(BadRequestException);
+        });
+    });
 });
