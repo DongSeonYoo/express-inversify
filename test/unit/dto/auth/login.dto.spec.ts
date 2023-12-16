@@ -1,5 +1,5 @@
-import { LoginDto } from '../../../src/dtos/auth/login.dto';
-import { BadRequestException } from '../../../src/utils/customError.util';
+import { LoginDto } from '../../../../src/dtos/auth/login.dto';
+import { BadRequestException } from '../../../../src/utils/customError.util';
 
 describe('login dto를 테스트한다', () => {
     let body;
@@ -19,7 +19,8 @@ describe('login dto를 테스트한다', () => {
     describe('입력받은 이메일을 검사한다', () => {
         it('이메일의 길이가 비정상적일 시 400에러를 던진다', () => {
             // given
-            body.email = 'test123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.eduedutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.eduedutest123@inha.edutest123@edu';
+            body.email =
+                'test123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.eduedutest123@inha.edutest123@inha.edutest123@inha.edutest123@inha.eduedutest123@inha.edutest123@edu';
 
             // when
             const func = () => {
@@ -47,7 +48,8 @@ describe('login dto를 테스트한다', () => {
     describe('입력받은 비밀번호를 검사한다', () => {
         it('비밀번호의 길이가 비정상적일 시 400에러를 던진다', () => {
             // given
-            body.password = '0101010101010101010101010101010101010101010101010101010101010';
+            body.password =
+                '0101010101010101010101010101010101010101010101010101010101010';
 
             // when
             const func = () => {

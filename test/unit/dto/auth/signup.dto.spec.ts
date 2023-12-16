@@ -1,5 +1,5 @@
-import { SignupRequestDTO } from '../../../src/dtos/auth/signup.dto';
-import { BadRequestException } from '../../../src/utils/customError.util';
+import { SignupRequestDTO } from '../../../../src/dtos/auth/signup.dto';
+import { BadRequestException } from '../../../../src/utils/customError.util';
 
 describe('signup dto를 테스트한다', () => {
     let body;
