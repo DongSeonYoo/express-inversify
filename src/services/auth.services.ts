@@ -53,7 +53,5 @@ export class AuthService {
         if (foundUser) {
             throw new BadRequestException('중복된 이메일이 존재합니다');
         }
-
-        return false;
     }
 }

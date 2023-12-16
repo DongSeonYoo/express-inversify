@@ -21,14 +21,16 @@ export class UserRepository {
     }
 
     async findUserByEmail(email: string) {
-        return await this.repository.findOne({
-            where: {
-                email,
-            },
-        });
+        return this.repository
+            .createQueryBuilder('user')
+            .select(['user.id as id'])
+            .where('user.email')
+            .where('user.email = :email', { email })
+            .withDeleted()
+            .getRawOne();
     }
 
-    async signUp(user: User): Promise<number> {
+    async signUp(user: User) {
         const result = await this.repository
             .createQueryBuilder()
             .insert()
@@ -43,13 +45,13 @@ export class UserRepository {
                     entryYear: user.entryYear,
                 },
             ])
+            .returning('id')
             .execute();
-
         return result.raw[0].id;
     }
 
     async getUserProfileByIdx(userIdx: number) {
-        const profile = await this.repository
+        return this.repository
             .createQueryBuilder('user')
             .select([
                 'user.name AS "name"',
@@ -61,8 +63,6 @@ export class UserRepository {
             .leftJoin('user.major', 'major')
             .where('user.id = :userIdx', { userIdx })
             .getRawOne();
-
-        return profile;
     }
 
     async updateUser(userIdx: number, dto: UpdateUserDto) {
