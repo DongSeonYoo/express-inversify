@@ -2,6 +2,7 @@ import { DataSource, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { inject, injectable } from 'inversify';
 import { Database } from '../configs/inversify/types';
+import { UpdateUserDto } from '../dtos/user/user-update.dto';
 
 @injectable()
 export class UserRepository {
@@ -9,6 +10,22 @@ export class UserRepository {
 
     constructor(@inject(Database.DataSource) private readonly dataSource: DataSource) {
         this.repository = dataSource.getRepository(User);
+    }
+
+    async findUserByIdx(userIdx: number) {
+        return this.repository.findOne({
+            where: {
+                id: userIdx,
+            },
+        });
+    }
+
+    async findUserByEmail(email: string) {
+        return await this.repository.findOne({
+            where: {
+                email,
+            },
+        });
     }
 
     async signUp(user: User): Promise<number> {
@@ -31,14 +48,6 @@ export class UserRepository {
         return result.raw[0].id;
     }
 
-    async findUserByEmail(email: string) {
-        return await this.repository.findOne({
-            where: {
-                email,
-            },
-        });
-    }
-
     async getUserProfileByIdx(userIdx: number) {
         const profile = await this.repository
             .createQueryBuilder('user')
@@ -54,5 +63,23 @@ export class UserRepository {
             .getRawOne();
 
         return profile;
+    }
+
+    async updateUser(userIdx: number, dto: UpdateUserDto) {
+        const updateResult = await this.repository
+            .createQueryBuilder('user')
+            .update()
+            .set({ name: dto.name, entryYear: dto.entryYear, major: dto.major })
+            .where('id = :userIdx', { userIdx })
+            .returning('id')
+            .execute();
+
+        return updateResult.raw[0].id;
+    }
+
+    async deleteUser(userIdx: number) {
+        return this.repository.softDelete({
+            id: userIdx,
+        });
     }
 }
