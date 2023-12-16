@@ -12,3 +12,9 @@ export const UserModule = {
     UserService: Symbol.for('UserService'),
     UserRepository: Symbol.for('UserRepository'),
 };
+
+export const ClubModule = {
+    ClubController: Symbol.for('ClubController'),
+    ClubService: Symbol.for('ClubService'),
+    ClubRepository: Symbol.for('ClubRepository'),
+};
