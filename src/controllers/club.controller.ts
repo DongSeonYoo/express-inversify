@@ -1,10 +1,25 @@
+import { Request, Response, NextFunction } from 'express';
 import { inject, injectable } from 'inversify';
 import { ClubModule } from '../configs/inversify/types';
 import { ClubService } from '../services/club.services';
+import { CreateClubDto } from '../dtos/club/create-club.dto';
+import { Success } from '../utils/common/response.common';
 
 @injectable()
 export class ClubController {
     constructor(@inject(ClubModule.ClubService) private readonly clubService: ClubService) {}
 
-    createClub() {}
+    async createClub(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { userIdx } = req.session.user!;
+
+            const dto = CreateClubDto.of(req.body);
+
+            const result = await this.clubService.createClub(userIdx, dto);
+
+            res.send(new Success('동아리 생성 성공', result));
+        } catch (error) {
+            return next(error);
+        }
+    }
 }
