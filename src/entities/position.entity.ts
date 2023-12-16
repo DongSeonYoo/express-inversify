@@ -6,8 +6,8 @@ export class Position {
     @PrimaryGeneratedColumn({ name: 'id' })
     id: number;
 
-    @Column('character varying', { name: 'name', nullable: true, length: 10 })
-    name: string | null;
+    @Column('character varying', { name: 'name', nullable: false, length: 10 })
+    name: string;
 
     @OneToMany(() => ClubMember, (clubMemberTb) => clubMemberTb.position)
     clubMemberTbs: ClubMember[];

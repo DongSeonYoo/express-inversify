@@ -1,11 +1,4 @@
-import {
-    Column,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ClubPost } from './club-post.entity';
 
 @Entity('post_img_tb', { schema: 'public' })
@@ -22,7 +15,7 @@ export class PostImg {
     })
     createdAt: Date;
 
-    @ManyToOne(() => ClubPost, (clubPostTb) => clubPostTb.postImgTbs)
+    @ManyToOne(() => ClubPost, (clubPostTb) => clubPostTb.postImgTbs, { nullable: false })
     @JoinColumn([{ name: 'post_id', referencedColumnName: 'id' }])
     post: ClubPost;
 }

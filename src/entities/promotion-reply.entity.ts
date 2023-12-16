@@ -1,11 +1,4 @@
-import {
-    Column,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PromotionComment } from './promotion-comment.entity';
 import { User } from './user.entity';
 
@@ -14,7 +7,7 @@ export class PromotionReply {
     @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
     id: number;
 
-    @Column('text', { name: 'content' })
+    @Column('text', { name: 'content', nullable: false })
     content: string;
 
     @Column('timestamp with time zone', {
@@ -29,11 +22,12 @@ export class PromotionReply {
     @ManyToOne(
         () => PromotionComment,
         (promotionCommentTb) => promotionCommentTb.promotionReplyTbs,
+        { nullable: false },
     )
     @JoinColumn([{ name: 'comment_id', referencedColumnName: 'id' }])
     comment: PromotionComment;
 
-    @ManyToOne(() => User, (userTb) => userTb.promotionReplyTbs)
+    @ManyToOne(() => User, (userTb) => userTb.promotionReplyTbs, { nullable: false })
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
     user: User;
 }

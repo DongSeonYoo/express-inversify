@@ -6,7 +6,7 @@ export class Major {
     @Column('smallint', { primary: true, name: 'id' })
     id: number;
 
-    @Column('character varying', { name: 'name', length: 32 })
+    @Column('character varying', { name: 'name', length: 32, nullable: false })
     name: string;
 
     @OneToMany(() => User, (userTb) => userTb.major)

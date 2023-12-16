@@ -23,8 +23,8 @@ export class Notice {
     @Column('text', { name: 'content' })
     content: string;
 
-    @Column('boolean', { name: 'is_fixed', nullable: true })
-    isFixed: boolean | null;
+    @Column('boolean', { name: 'is_fixed', nullable: false })
+    isFixed: boolean;
 
     @Column('timestamp with time zone', {
         name: 'created_at',
@@ -41,11 +41,11 @@ export class Notice {
     @OneToMany(() => NoticeImg, (noticeImgTb) => noticeImgTb.post)
     noticeImgTbs: NoticeImg[];
 
-    @ManyToOne(() => Club, (clubTb) => clubTb.noticeTbs)
+    @ManyToOne(() => Club, (clubTb) => clubTb.noticeTbs, { nullable: false })
     @JoinColumn([{ name: 'club_id', referencedColumnName: 'id' }])
     club: Club;
 
-    @ManyToOne(() => User, (userTb) => userTb.noticeTbs)
+    @ManyToOne(() => User, (userTb) => userTb.noticeTbs, { nullable: false })
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
     user: User;
 }

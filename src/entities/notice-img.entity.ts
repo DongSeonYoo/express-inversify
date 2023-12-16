@@ -1,10 +1,4 @@
-import {
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Notice } from './notice.entity';
 
 @Entity('notice_img_tb', { schema: 'public' })
@@ -21,7 +15,7 @@ export class NoticeImg {
     })
     createAt: Date;
 
-    @ManyToOne(() => Notice, (noticeTb) => noticeTb.noticeImgTbs)
+    @ManyToOne(() => Notice, (noticeTb) => noticeTb.noticeImgTbs, { nullable: false })
     @JoinColumn([{ name: 'post_id', referencedColumnName: 'id' }])
     post: Notice;
 }

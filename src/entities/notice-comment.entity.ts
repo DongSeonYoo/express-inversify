@@ -16,7 +16,7 @@ export class NoticeComment {
     @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
     id: number;
 
-    @Column('text', { name: 'content' })
+    @Column('text', { name: 'content', nullable: false })
     content: string;
 
     @Column('timestamp with time zone', {
@@ -28,11 +28,11 @@ export class NoticeComment {
     @Column('timestamp with time zone', { name: 'deleted_at', nullable: true })
     deletedAt: Date | null;
 
-    @ManyToOne(() => Notice, (noticeTb) => noticeTb.noticeCommentTbs)
+    @ManyToOne(() => Notice, (noticeTb) => noticeTb.noticeCommentTbs, { nullable: false })
     @JoinColumn([{ name: 'post_id', referencedColumnName: 'id' }])
     post: Notice;
 
-    @ManyToOne(() => User, (userTb) => userTb.noticeCommentTbs)
+    @ManyToOne(() => User, (userTb) => userTb.noticeCommentTbs, { nullable: false })
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
     user: User;
 

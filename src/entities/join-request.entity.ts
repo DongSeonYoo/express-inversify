@@ -1,11 +1,4 @@
-import {
-    Column,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Club } from './club.entity';
 import { User } from './user.entity';
 
@@ -20,11 +13,11 @@ export class JoinRequest {
     })
     createdAt: Date;
 
-    @ManyToOne(() => Club, (clubTb) => clubTb.joinRequestTbs)
+    @ManyToOne(() => Club, (clubTb) => clubTb.joinRequestTbs, { nullable: false })
     @JoinColumn([{ name: 'club_id', referencedColumnName: 'id' }])
     club: Club;
 
-    @ManyToOne(() => User, (userTb) => userTb.joinRequestTbs)
+    @ManyToOne(() => User, (userTb) => userTb.joinRequestTbs, { nullable: false })
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
     user: User;
 }

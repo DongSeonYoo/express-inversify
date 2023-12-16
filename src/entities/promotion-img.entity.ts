@@ -1,11 +1,4 @@
-import {
-    Column,
-    Entity,
-    Index,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Promotion } from './promotion';
 
 @Entity('promotion_img_tb', { schema: 'public' })
@@ -22,7 +15,7 @@ export class PromotionImg {
     })
     createAt: Date;
 
-    @ManyToOne(() => Promotion, (promotionTb) => promotionTb.promotionImgTbs)
+    @ManyToOne(() => Promotion, (promotionTb) => promotionTb.promotionImgTbs, { nullable: false })
     @JoinColumn([{ name: 'post_id', referencedColumnName: 'id' }])
     post: Promotion;
 }

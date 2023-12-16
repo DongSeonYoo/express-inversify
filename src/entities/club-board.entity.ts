@@ -15,8 +15,8 @@ export class ClubBoard {
     @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
     id: number;
 
-    @Column('character varying', { name: 'name', nullable: true, length: 16 })
-    name: string | null;
+    @Column('character varying', { name: 'name', nullable: false, length: 16 })
+    name: string;
 
     @Column('timestamp with time zone', {
         name: 'created_at',
@@ -24,7 +24,7 @@ export class ClubBoard {
     })
     createdAt: Date;
 
-    @ManyToOne(() => Club, (clubTb) => clubTb.clubBoardTbs)
+    @ManyToOne(() => Club, (clubTb) => clubTb.clubBoardTbs, { nullable: false })
     @JoinColumn([{ name: 'club_id', referencedColumnName: 'id' }])
     club: Club;
 

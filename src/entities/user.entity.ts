@@ -1,4 +1,14 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import {
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 import { ClubComment } from './club-comment.entity';
 import { ClubMember } from './club-member.entity';
 import { ClubPost } from './club-post.entity';
@@ -25,8 +35,8 @@ export class User {
     @Column('character varying', { name: 'name', length: 16 })
     name: string;
 
-    @Column('smallint', { name: 'entry_year', nullable: true })
-    entryYear: number | null;
+    @Column('smallint', { name: 'entry_year', nullable: false })
+    entryYear: number;
 
     @Column('character', { name: 'personal_color', length: 6 })
     personalColor: string;
@@ -70,26 +80,7 @@ export class User {
     @OneToMany(() => PromotionReply, (promotionReplyTb) => promotionReplyTb.user)
     promotionReplyTbs: PromotionReply[];
 
-    @ManyToOne(() => Major, (majorTb) => majorTb.userTbs)
+    @ManyToOne(() => Major, (majorTb) => majorTb.userTbs, { nullable: false })
     @JoinColumn([{ name: 'major', referencedColumnName: 'id' }])
     major: number;
-
-    // static create(
-    //     email: string,
-    //     password: string,
-    //     name: string,
-    //     major: number,
-    //     personalColor: string,
-    //     entryYear: number,
-    // ) {
-    //     const user = new User();
-    //     user.email = email;
-    //     user.password = password;
-    //     user.name = name;
-    //     user.major = major;
-    //     user.personalColor = personalColor;
-    //     user.entryYear = entryYear;
-
-    //     return user;
-    // }
 }

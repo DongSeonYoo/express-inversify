@@ -35,11 +35,11 @@ export class ClubPost {
     @OneToMany(() => ClubComment, (clubCommentTb) => clubCommentTb.clubPost)
     clubCommentTbs: ClubComment[];
 
-    @ManyToOne(() => ClubBoard, (clubBoardTb) => clubBoardTb.clubPostTbs)
+    @ManyToOne(() => ClubBoard, (clubBoardTb) => clubBoardTb.clubPostTbs, { nullable: false })
     @JoinColumn([{ name: 'club_board_id', referencedColumnName: 'id' }])
     clubBoard: ClubBoard;
 
-    @ManyToOne(() => User, (userTb) => userTb.clubPostTbs)
+    @ManyToOne(() => User, (userTb) => userTb.clubPostTbs, { nullable: false })
     @JoinColumn([{ name: 'user_id', referencedColumnName: 'id' }])
     user: User;
 

@@ -31,16 +31,13 @@ export class Promotion {
     @Column('timestamp with time zone', { name: 'deleted_at', nullable: true })
     deletedAt: Date | null;
 
-    @OneToMany(
-        () => PromotionComment,
-        (promotionCommentTb) => promotionCommentTb.post,
-    )
+    @OneToMany(() => PromotionComment, (promotionCommentTb) => promotionCommentTb.post)
     promotionCommentTbs: PromotionComment[];
 
     @OneToMany(() => PromotionImg, (promotionImgTb) => promotionImgTb.post)
     promotionImgTbs: PromotionImg[];
 
-    @ManyToOne(() => Club, (clubTb) => clubTb.promotionTbs)
+    @ManyToOne(() => Club, (clubTb) => clubTb.promotionTbs, { nullable: false })
     @JoinColumn([{ name: 'club_id', referencedColumnName: 'id' }])
     club: Club;
 }

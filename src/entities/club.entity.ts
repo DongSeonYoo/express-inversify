@@ -24,8 +24,8 @@ export class Club {
     @Column('character varying', { name: 'name', length: 12 })
     name: string;
 
-    @Column('character varying', { name: 'cover', nullable: true, length: 320 })
-    cover: string | null;
+    @Column('character varying', { name: 'cover', nullable: false, length: 320 })
+    cover: string;
 
     @Column('boolean', { name: 'is_recruit' })
     isRecruit: boolean;
@@ -54,18 +54,17 @@ export class Club {
     @OneToMany(() => ClubMember, (clubMemberTb) => clubMemberTb.club)
     clubMemberTbs: ClubMember[];
 
-    @ManyToOne(() => Belong, (belongTb) => belongTb.clubTbs)
+    @ManyToOne(() => Belong, (belongTb) => belongTb.clubTbs, { nullable: false })
     @JoinColumn([{ name: 'belong', referencedColumnName: 'id' }])
     belong: Belong;
 
-    @ManyToOne(() => BigCategory, (bigCategoryTb) => bigCategoryTb.clubTbs)
+    @ManyToOne(() => BigCategory, (bigCategoryTb) => bigCategoryTb.clubTbs, { nullable: false })
     @JoinColumn([{ name: 'big_category', referencedColumnName: 'id' }])
     bigCategory: BigCategory;
 
-    @ManyToOne(
-        () => SmallCategory,
-        (smallCategoryTb) => smallCategoryTb.clubTbs,
-    )
+    @ManyToOne(() => SmallCategory, (smallCategoryTb) => smallCategoryTb.clubTbs, {
+        nullable: false,
+    })
     @JoinColumn([{ name: 'small_category', referencedColumnName: 'id' }])
     smallCategory: SmallCategory;
 
