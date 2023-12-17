@@ -9,4 +9,8 @@ const userController = container.get<UserController>(UserModule.UserController);
 
 router.get('/', checkAuth, userController.getProfile.bind(userController));
 
+router.put('/', checkAuth, userController.modifyProfile.bind(userController));
+
+router.delete('/', checkAuth, userController.deleteUser.bind(userController));
+
 export default router;

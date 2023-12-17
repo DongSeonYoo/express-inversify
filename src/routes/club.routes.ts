@@ -9,4 +9,6 @@ const clubController = container.get<ClubController>(ClubModule.ClubController);
 
 router.post('/', checkAuth, clubController.createClub.bind(clubController));
 
+router.get('/', checkAuth, clubController.getClubProfile.bind(clubController));
+
 export default router;
