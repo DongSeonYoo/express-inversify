@@ -20,7 +20,7 @@ export class AuthController {
 
             const result = await this.authService.signup(signupDto);
 
-            res.send(new Success('회원가입 성공', result));
+            return res.send(new Success('회원가입 성공', result));
         } catch (error) {
             return next(error);
         }

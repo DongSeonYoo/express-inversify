@@ -12,8 +12,6 @@ export class SignupRequestDTO {
 
     private constructor() {}
 
-    // 1. SignupRequestDto 인스턴스를 생성한다
-    // 2. validation
     static of(body: any): SignupRequestDTO {
         const dto = new SignupRequestDTO();
         dto.email = body.email;
@@ -48,6 +46,6 @@ export class SignupRequestDTO {
         validate(this.name, 'name').checkInput().checkRegex(nameRegex);
         validate(this.major, 'major').checkInput().isNumber();
         validate(this.personalColor, 'personalColor').checkInput();
-        validate(this.entryYear, 'entryYear').checkInput().isNumber().checkLength(2, 2);
+        validate(this.entryYear, 'entryYear').checkInput().checkLength(2, 2).isNumber();
     }
 }

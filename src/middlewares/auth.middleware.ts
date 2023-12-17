@@ -4,11 +4,10 @@ import { UnauthorizedException } from '../utils/customError.util';
 export const checkAuth: RequestHandler = (req, res, next) => {
     try {
         if (req.session && req.session.user) {
-            return next()
+            return next();
         }
-
-        throw new UnauthorizedException('로그인 필요함미다');
     } catch (error) {
         return next(error);
     }
+    throw new UnauthorizedException('로그인 필요함미다');
 };

@@ -9,7 +9,7 @@ class Validate {
      */
     checkInput() {
         if (this.input === undefined || this.input === '') {
-            this.setError(errorMessage.invalidInput);
+            this.setError(errorMessage.invalidInput + this.name);
         }
         return this;
     }

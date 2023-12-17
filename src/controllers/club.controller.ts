@@ -22,4 +22,11 @@ export class ClubController {
             return next(error);
         }
     }
+
+    async getClubProfile(req: Request, res: Response, next: NextFunction) {
+        try {
+        } catch (error) {
+            return next(error);
+        }
+    }
 }

@@ -1,8 +1,7 @@
 import { inject, injectable } from 'inversify';
-import { ClubModule, Database } from '../configs/inversify/types';
-import { Compressor, DataSource, Repository } from 'typeorm';
+import { Database } from '../configs/inversify/types';
+import { DataSource, Repository } from 'typeorm';
 import { Club } from '../entities/club.entity';
-import { ClubMember } from '../entities/club-member.entity';
 
 @injectable()
 export class ClubRepository {
@@ -19,8 +18,6 @@ export class ClubRepository {
 
             // 동아리 생성
             const createdClub = await queryRunner.manager.save(Club, club);
-            console.log(createdClub.id);
-            console.log(userIdx);
 
             // 동아리 멤버 테이블에 삽입
             await queryRunner.manager

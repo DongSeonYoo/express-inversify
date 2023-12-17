@@ -23,6 +23,15 @@ export class UserRepository {
     async findUserByEmail(email: string) {
         return this.repository
             .createQueryBuilder('user')
+            .select(['id', 'password'])
+            .where('user.email')
+            .where('user.email = :email', { email })
+            .getRawOne();
+    }
+
+    async duplicateCheckEmail(email: string) {
+        return this.repository
+            .createQueryBuilder('user')
             .select(['user.id as id'])
             .where('user.email')
             .where('user.email = :email', { email })
