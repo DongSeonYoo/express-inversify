@@ -1,3 +1,3 @@
 import { BadRequestException } from '../../src/utils/customError.util';
 
-describe('error를 테스트합니다', () => {});
+describe('CustomError를 테스트한다', () => {});
