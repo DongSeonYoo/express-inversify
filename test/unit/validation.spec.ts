@@ -122,6 +122,19 @@ describe('utils/validation 클래스를 테스트한다', () => {
             // then
             expect(checkIsNumberFunc).toThrow(BadRequestException);
         });
+
+        it('input이 string 타입 정수이면 그대로 통과한다', () => {
+            // given
+            const input = '123';
+
+            // when
+            const func = () => {
+                validate(input, name).isNumber();
+            };
+
+            // then
+            expect(func).not.toThrow(BadRequestException);
+        });
     });
 
     describe('isBoolean 메서드를 테스트한다', () => {
