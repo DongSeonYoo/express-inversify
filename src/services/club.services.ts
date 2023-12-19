@@ -2,6 +2,7 @@ import { inject, injectable } from 'inversify';
 import { ClubModule } from '../configs/inversify/types';
 import { ClubRepository } from '../repositories/club.repository';
 import { CreateClubDto } from '../dtos/club/create-club.dto';
+import { NotFoundException } from '../utils/customError.util';
 
 @injectable()
 export class ClubService {
@@ -22,4 +23,15 @@ export class ClubService {
 
         return clubIdx;
     }
+
+    async getClub(clubIdx: string) {
+        const clubInfo = await this.clubRepository.getClubByIdx(clubIdx);
+        if (!clubInfo) {
+            throw new NotFoundException('해당하는 동아리가 존재하지 않습니다');
+        }
+
+        return clubInfo;
+    }
+
+    async selectAllClub() {}
 }

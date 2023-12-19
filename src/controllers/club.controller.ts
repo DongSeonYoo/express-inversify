@@ -4,6 +4,7 @@ import { ClubModule } from '../configs/inversify/types';
 import { ClubService } from '../services/club.services';
 import { CreateClubDto } from '../dtos/club/create-club.dto';
 import { Success } from '../utils/common/response.common';
+import { validate } from '../utils/validate.util';
 
 @injectable()
 export class ClubController {
@@ -25,6 +26,21 @@ export class ClubController {
 
     async getClubProfile(req: Request, res: Response, next: NextFunction) {
         try {
+            const clubIdx = req.params.clubIdx;
+
+            validate(clubIdx, 'clubIdx').checkInput().isNumber();
+
+            const clubInfo = await this.clubService.getClub(clubIdx);
+
+            res.send(new Success('', clubInfo));
+        } catch (error) {
+            return next(error);
+        }
+    }
+
+    selectAllClub(req: Request, res: Response, next: NextFunction) {
+        try {
+            this.clubService.selectAllClub();
         } catch (error) {
             return next(error);
         }

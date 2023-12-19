@@ -2,6 +2,9 @@ import { inject, injectable } from 'inversify';
 import { Database } from '../configs/inversify/types';
 import { DataSource, Repository } from 'typeorm';
 import { Club } from '../entities/club.entity';
+import { Belong } from '../entities/belong.entity';
+import { BigCategory } from '../entities/big-category.entity';
+import { SmallCategory } from '../entities/small-category.entity';
 
 @injectable()
 export class ClubRepository {
@@ -24,7 +27,11 @@ export class ClubRepository {
                 .createQueryBuilder()
                 .insert()
                 .into('club_member_tb')
-                .values({ user: { id: userIdx }, club: { id: createdClub.id }, position: 0 })
+                .values({
+                    user: { id: userIdx },
+                    club: { id: createdClub.id },
+                    position: 0,
+                })
                 .execute();
 
             await queryRunner.commitTransaction();
@@ -36,5 +43,25 @@ export class ClubRepository {
         } finally {
             await queryRunner.release();
         }
+    }
+
+    async getClubByIdx(clubIdx: string) {
+        return this.repository
+            .createQueryBuilder('club')
+            .select([
+                'club.name as "name"',
+                'belong.name as "belong"',
+                'bigCategory.name as "bigCategory"',
+                'smallCategory.name as "smallCategory"',
+                'club.profileImg as "profileImg"',
+                'club.bannerImg as "bannerImg"',
+                'club.cover as "cover"',
+                'club.themeColor as "themeColor"',
+            ])
+            .innerJoin('club.belong', 'belong')
+            .innerJoin('club.bigCategory', 'bigCategory')
+            .innerJoin('club.smallCategory', 'smallCategory')
+            .where('club.id = :clubIdx', { clubIdx })
+            .getRawOne();
     }
 }
