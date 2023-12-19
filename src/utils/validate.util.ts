@@ -38,12 +38,13 @@ class Validate {
     }
 
     /**
-     * 정수인지 검사한다
+     * 1. string타입이라면 정수인지 검사한다
      */
     isNumber() {
-        if (typeof this.input !== 'number' || isNaN(Number(this.input))) {
+        if (isNaN(Number(this.input))) {
             this.setError(errorMessage.isNumber);
         }
+
         return this;
     }
 
