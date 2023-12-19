@@ -36,10 +36,26 @@ Data Access Layer<br>**
 
 ### Controller
 
-    - Http Request를 받아 리터럴 오브젝트(Json)를 DTO로 변경한다
-    - 생성 된 DTO를 Business Layer로 넘겨준다
-    - Business Layer에서 반환 된 값을 리터럴 오브젝트(Json)로 변경한다
-    - 응답 양식에 맞춰 Response한다
+    1. Http Request를 받아 리터럴 오브젝트(Json)를 DTO로 변경한다
+    2. 생성 된 DTO를 Business Layer로 넘겨준다
+    3. 응답 양식에 맞춰 Response한다
+
+```Typescript
+async signUp(req: Request, res: Response, next: NextFunction) {
+	try {
+		// 1
+		const signupDto = SignupRequestDTO.of(req.body);
+
+		// 2
+		const result = await this.authService.signup(signupDto);
+
+		// 3
+		return res.send(new Success('회원가입 성공', result));
+	} catch (error) {
+		return next(error);
+	}
+}
+```
 
 ### DTO
 
@@ -76,7 +92,8 @@ export class AuthService {
     constructor(
 		// 하위 계층인 repository에 관한 정보밖에 알지 못한다
 		@inject(UserModule.UserRepository)
-		private userRepository: UserRepository){}
+		private userRepository: UserRepository
+	){}
 }
 ```
 
